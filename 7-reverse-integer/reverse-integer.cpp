@@ -1,17 +1,16 @@
 class Solution {
 public:
     int reverse(int x) {
-        long long n=0;
-        while(x) {
-            int d=x%10;
-            n= n*10 + d;
-            if(n>INT_MAX || (n==INT_MAX / 10 && d==7))
+        long long n = 0;  // Using long long to handle overflow
+        while (x != 0) {
+            int d = x % 10;
+            n = n * 10 + d;
+            // Check for overflow or underflow
+            if (n > INT_MAX || n < INT_MIN) {
                 return 0;
-            if(n<INT_MIN || (n==INT_MIN / 10 && d == -8))
-                return 0;
-            // n= n*10 + d;
-            x/=10;
+            }
+            x /= 10;
         }
-        return n;
+        return static_cast<int>(n);  // Convert back to int before returning
     }
 };
